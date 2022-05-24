@@ -33,7 +33,7 @@ export default {
       this.searchKey = event;
       const params = {
         api_key: '8bf465eef8f09c9e78a545d8385e1644',
-        language: 'it-IT',
+        //language: 'it-IT',
         page: '4',
         include_adult: 'false',
         query: event.trim(),
