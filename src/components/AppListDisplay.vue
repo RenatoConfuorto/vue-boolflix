@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ElementCard  v-for="(element, index) in elementArray" :key="index" :movieObj="element"/>
+    <ElementCard  v-for="(element, index) in elementArray" :key="index" :elementObj="element"/>
   </div>
 </template>
 

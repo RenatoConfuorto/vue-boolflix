@@ -3,7 +3,10 @@
     <AppHeader @search="searchElements($event)"/>
 
     <main>
+      <h2>Film</h2>
       <AppListDisplay :elementArray="movieArray"/>
+      <h2>Serie Tv</h2>
+      <AppListDisplay :elementArray="seriesArray"/>
     </main>
   </div>
 </template>
@@ -24,6 +27,7 @@ export default {
     return{
       searchKey: '',
       movieArray: [],
+      seriesArray: [],
     }
   },
   methods: {
@@ -33,19 +37,28 @@ export default {
       this.searchKey = event;
       const params = {
         api_key: '8bf465eef8f09c9e78a545d8385e1644',
-        //language: 'it-IT',
-        page: '4',
         include_adult: 'false',
         query: event.trim(),
       };
       // console.log(params);
+      //cercare i film
       axios
       .get('https://api.themoviedb.org/3/search/movie', {params})
       .then((resp) => {
-        console.log(resp.data.results);
+        // console.log(resp.data.results);
         this.movieArray = resp.data.results;
-        console.log(this.movieArray);
+        // console.log(this.movieArray);
       });
+
+      //cercare le serie tv
+      /*
+      axios
+      .get('https://api.themoviedb.org/3/search/tv', {params})
+      .then( (resp) => {
+        // console.log(resp);
+        this.seriesArray = resp;
+      });
+      */
     }
   }
 }
