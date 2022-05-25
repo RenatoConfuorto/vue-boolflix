@@ -25,7 +25,6 @@ export default {
   },
   data(){
     return{
-      searchKey: '',
       movieArray: [],
       seriesArray: [],
     }
@@ -34,13 +33,24 @@ export default {
     searchElements(event){
       //bloccare la funzione se non c'è scritto nulla
       if(event.trim() === '')return;
-      this.searchKey = event;
+      
       const params = {
         api_key: '8bf465eef8f09c9e78a545d8385e1644',
         include_adult: 'false',
         query: event.trim(),
       };
-      // console.log(params);
+
+      const movieReq = axios.get('https://api.themoviedb.org/3/search/movie', {params});
+      const seriesReq = axios.get('https://api.themoviedb.org/3/search/tv', {params});
+
+      axios.all([movieReq, seriesReq])
+      .then( (resp) => {
+        console.log(resp);
+        this.movieArray = resp[0].data.results;
+        this.seriesArray = resp[1].data.results;
+      });
+
+      /*
       //cercare i film
       axios
       .get('https://api.themoviedb.org/3/search/movie', {params})
@@ -51,7 +61,7 @@ export default {
       });
 
       //cercare le serie tv
-      /*
+      
       axios
       .get('https://api.themoviedb.org/3/search/tv', {params})
       .then( (resp) => {
@@ -67,5 +77,6 @@ export default {
 <style lang="scss">
 @import "./style/common.scss";
 @import "./style/variables.scss";
+@import '~@fortawesome/fontawesome-free/css/all.min.css';
 
 </style>

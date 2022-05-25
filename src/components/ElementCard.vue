@@ -1,13 +1,20 @@
 <template>
   <div class="card">
-    <!-- <img :src="`http://image.tmdb.org/t/p//w500/${elementObj.poster_path}`" alt=""> -->
-    <h2>{{ elementObj.title }}</h2>
-    <h3>{{ elementObj.original_title }}</h3>
+    <img :src="`http://image.tmdb.org/t/p//w500/${elementObj.poster_path}`" alt="" v-if="elementObj.poster_path">
+    <h2>{{ elementTitle }}</h2>
+    <h3>{{ elementOriginalTitle }}</h3>
     <div class="flag-container">
       <img v-if="hasFlag" :src="require(`../assets/img/${elementObj.original_language}.svg`)" alt="" class="flag">
       <p v-else>{{ elementObj.original_language }}</p>
     </div>
-    <p>{{ elementObj.vote_average }}</p>
+    <div class="stars-container"><i
+      v-for="n in 5"
+      :key="n"
+      class="fa-star"
+      :class="(n <= starsNbr) ? 'yellow-star fas' : 'far'"
+    >
+    </i>
+    </div>
 
     <!-- titolo
     titolo originale
@@ -33,7 +40,7 @@ export default {
   data(){
     return{
       lingua: 'it',
-      flags: ['de', 'en', 'es', 'fr', 'it'],
+      flags: ['de', 'en', 'es', 'fr', 'it', 'ja'],
       /*
       imageIt: imageIt,
       imageDe: imageDe,
@@ -44,8 +51,17 @@ export default {
     }
   },
   computed: {
+    elementTitle(){
+      return this.elementObj.title ? this.elementObj.title : this.elementObj.name;
+    },
+    elementOriginalTitle(){
+      return this.elementObj.original_title ? this.elementObj.original_title : this.elementObj.original_name;
+    },
     hasFlag(){
       return this.flags.includes(this.elementObj.original_language);
+    },
+    starsNbr(){
+      return Math.ceil(this.elementObj.vote_average / 2);
     }
   },
   methods: {
@@ -75,7 +91,7 @@ export default {
   margin: 5px;
   margin-bottom: 10px;
   width: calc(25% - 10px);
-  background-color: white;
+  background-color: rgb(235, 234, 234);
   display: flex;
   flex-direction: column;
 
@@ -84,6 +100,10 @@ export default {
     .flag{
       width: 20px;
     }
+
+    // .stars-container{
+    //   color: goldenrod;
+    // }
 
   }
 

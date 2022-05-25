@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="card-container">
     <ElementCard  v-for="(element, index) in elementArray" :key="index" :elementObj="element"/>
   </div>
 </template>
@@ -19,8 +19,7 @@ export default {
 
 <style lang="scss" scoped>
 
-div{
-  background-color: lightgrey;
+.card-container{
   display: flex;
   flex-wrap: wrap;
 }
