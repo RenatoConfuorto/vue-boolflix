@@ -1,6 +1,8 @@
 <template>
   <div class="card-container">
-    <ElementCard  v-for="(element, index) in elementArray" :key="index" :elementObj="element"/>
+    <ul>
+      <ElementCard  v-for="(element, index) in elementArray" :key="index" :elementObj="element"/>
+    </ul>
   </div>
 </template>
 
@@ -20,8 +22,11 @@ export default {
 <style lang="scss" scoped>
 
 .card-container{
-  display: flex;
-  flex-wrap: wrap;
+  
+  ul{
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
 
 </style>

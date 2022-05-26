@@ -70,6 +70,9 @@ export default {
       });
       */
     }
+  },
+  created() {
+    document.title = 'Boolfix';
   }
 }
 </script>

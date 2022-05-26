@@ -1,26 +1,25 @@
 <template>
-  <div class="card">
-    <img :src="`http://image.tmdb.org/t/p//w500/${elementObj.poster_path}`" alt="" v-if="elementObj.poster_path">
-    <h2>{{ elementTitle }}</h2>
-    <h3>{{ elementOriginalTitle }}</h3>
-    <div class="flag-container">
-      <img v-if="hasFlag" :src="require(`../assets/img/${elementObj.original_language}.svg`)" alt="" class="flag">
-      <p v-else>{{ elementObj.original_language }}</p>
-    </div>
-    <div class="stars-container"><i
-      v-for="n in 5"
-      :key="n"
-      class="fa-star"
-      :class="(n <= starsNbr) ? 'yellow-star fas' : 'far'"
-    >
-    </i>
-    </div>
+  <li class="card">
+    <div class="card-content">
+      <img :src="`http://image.tmdb.org/t/p//w500/${elementObj.poster_path}`" alt="" v-if="elementObj.poster_path">
+      <i class="far fa-images" v-else></i>
+      <h2>{{ elementTitle }}</h2>
+      <h3>{{ elementOriginalTitle }}</h3>
+      <div class="flag-container">
+        <img v-if="hasFlag" :src="require(`../assets/img/${elementObj.original_language}.svg`)" alt="" class="flag">
+        <p v-else>{{ elementObj.original_language }}</p>
+      </div>
+      <div class="stars-container"><i
+        v-for="n in 5"
+        :key="n"
+        class="fa-star"
+        :class="(n <= starsNbr) ? 'yellow-star fas' : 'far'"
+      >
+      </i>
+      </div>
 
-    <!-- titolo
-    titolo originale
-    lingua
-    voto -->
-  </div>
+    </div>
+  </li>
 </template>
 
 <script>
