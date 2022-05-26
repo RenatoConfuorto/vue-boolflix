@@ -7,8 +7,8 @@
       <NavBarList/>
     </div>
     <div class="search-bar">
-      <input type="text" placeholder="Cerca" v-model="searchText">
-      <button @click="$emit('search', searchText)">Cerca</button>
+      <input type="text" placeholder="Cerca" v-model="searchText" @keyup.enter="searchAction">
+      <button @click="searchAction">Cerca</button>
     </div>
   </header>
 
@@ -25,6 +25,11 @@ export default {
   data() {
     return{
       searchText: '',
+    }
+  },
+  methods: {
+    searchAction(){
+      this.$emit('search', this.searchText);
     }
   }
 }
@@ -52,8 +57,7 @@ header{
     border: 1px solid $brand-primary-color;
 
     input{
-      padding: 2px;
-      height: 1.5rem;
+      padding: 5px 10px;
       border: 0;
 
       &:focus-visible{
@@ -63,7 +67,6 @@ header{
 
     button{
       padding: 5px 10px;
-      height: 1.5rem;
       border: 0;
       background-color: $brand-primary-color;
     }

@@ -1,21 +1,36 @@
 <template>
   <li class="card">
     <div class="card-content">
-      <img :src="`http://image.tmdb.org/t/p//w500/${elementObj.poster_path}`" alt="" v-if="elementObj.poster_path">
-      <i class="far fa-images" v-else></i>
-      <h2>{{ elementTitle }}</h2>
-      <h3>{{ elementOriginalTitle }}</h3>
-      <div class="flag-container">
-        <img v-if="hasFlag" :src="require(`../assets/img/${elementObj.original_language}.svg`)" alt="" class="flag">
-        <p v-else>{{ elementObj.original_language }}</p>
+      <div class="card-front">
+        <img :src="`http://image.tmdb.org/t/p//w500/${elementObj.poster_path}`" alt="" v-if="elementObj.poster_path">
+        <div v-else class="else-front">
+          <i class="far fa-images"></i>
+        </div>
       </div>
-      <div class="stars-container"><i
-        v-for="n in 5"
-        :key="n"
-        class="fa-star"
-        :class="(n <= starsNbr) ? 'yellow-star fas' : 'far'"
-      >
-      </i>
+
+      <div class="card-back">
+        <p class="text-info">Titolo: <span>{{ elementTitle }}</span></p>
+        <p class="text-info">Titolo originale: <span>{{ elementOriginalTitle }}</span></p>
+        <p class="text-info">Voto: 
+          <span class="stars-container">
+            <i
+            v-for="n in 5"
+            :key="n"
+            class="fa-star"
+            :class="(n <= starsNbr) ? 'yellow-star fas' : 'far'"
+          >
+            </i>
+          </span>
+        </p>
+        <div class="overview">
+          <p class="text-info">Overview: <span v-if="elementObj.overview">{{ elementObj.overview }}</span>
+          <span v-else>Descrizione non disponibile</span>
+          </p>
+        </div>
+        <div class="flag-container">
+          <img v-if="hasFlag" :src="require(`../assets/img/${elementObj.original_language}.svg`)" alt="" class="flag">
+          <p v-else>{{ elementObj.original_language }}</p>
+        </div>
       </div>
 
     </div>
@@ -83,28 +98,113 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.card{
-  min-height: 150px;
-  border: 1px solid black;
-  padding: 5px;
-  margin: 5px;
-  margin-bottom: 10px;
-  width: calc(25% - 10px);
-  background-color: rgb(235, 234, 234);
-  display: flex;
-  flex-direction: column;
+@import "../style/variables.scss";
 
-  .flag-container{
-    
-    .flag{
-      width: 20px;
+.card{
+  position: relative;
+  color: white;
+  width: calc(25% - 6px);
+  margin: 3px;
+  margin-bottom: 6px;
+  perspective: 500px;
+  align-self: stretch;
+
+  &:hover .card-content{
+    transform: rotateY(180deg);
+  }
+
+  &-content{
+    position: relative;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+  } 
+  
+
+  &-front,
+  &-back{
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+  }
+
+  &-front{
+    text-align: center;
+    overflow: hidden;
+    background-color: transparent;
+
+    img{
+      height: 100%;
+      object-fit: cover;
     }
 
-    // .stars-container{
-    //   color: goldenrod;
-    // }
+    .else-front{
+      background-color: $brand-secondary-color;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
+      i{
+      font-size: 5rem;
+    }
+    }
   }
+
+  &-back{
+    background-color: $brand-secondary-color;
+    transform: rotateY(180deg);
+    position: absolute;
+    padding: 10px;
+    top: 0;
+
+    display: flex;
+    flex-direction: column;
+    
+    .text-info{
+      font-weight: 600;
+      margin-bottom: 2px;
+
+      span{
+        font-weight: 100;
+      }
+    }
+
+    .overview{
+      flex-grow: 1;
+      overflow-y: auto;
+
+      //scrollbar
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+      &::-webkit-scrollbar-track {
+        background: $brand-secondary-color;
+        border-radius: 5px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: $brand-primary-color; 
+        border-radius: 5px;
+      }
+      &::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+      //fine scrollbar
+
+      span{
+        font-size: .8rem;
+      }
+    }
+
+    .flag-container{
+
+      .flag{
+        width: 20px;
+      }
+    }
+  }
+
 
 }
 

@@ -3,10 +3,12 @@
     <AppHeader @search="searchElements($event)"/>
 
     <main>
-      <h2>Film</h2>
-      <AppListDisplay :elementArray="movieArray"/>
-      <h2>Serie Tv</h2>
-      <AppListDisplay :elementArray="seriesArray"/>
+      <section class="search-content container">
+        <h2>Film</h2>
+        <AppListDisplay :elementArray="movieArray"/>
+        <h2>Serie Tv</h2>
+        <AppListDisplay :elementArray="seriesArray"/>
+      </section>
     </main>
   </div>
 </template>

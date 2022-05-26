@@ -12,6 +12,23 @@ ul{
   list-style-type: none;
 }
 
+body{
+  background-color: grey;
+}
+
+.container{
+  width: 75%;
+  margin: 0 auto;
+}
+
+.search-content{
+
+  h2{
+    margin: 15px 0;
+    color: white;
+  }
+}
+
 .stars-container{
   color: grey;
 
